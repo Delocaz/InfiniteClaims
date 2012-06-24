@@ -93,7 +93,7 @@ public class InfiniteClaims extends JavaPlugin
 		if(config.getString("version") == null || !config.getString("version").equalsIgnoreCase("2.0.0"))
 		{
 			this.log.info("You were using an older version of InfiniteClaims, scheduling a legacy conversion when the server has a chance.");
-			this.getServer().getScheduler().scheduleAsyncDelayedTask(this, new LegacyConversion(this));
+			this.getServer().getScheduler().scheduleAsyncDelayedTask(this, new LegacyConversion(this), 40);
 			this.config.setString("version", "2.0.0");
 		}
 		

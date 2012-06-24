@@ -32,7 +32,7 @@ public class InfiniteClaimsConfig
 		configDefaults.put("signs.prefix", "Plot Owner:");
 		configDefaults.put("signs.prefix-color", "0");
 		configDefaults.put("signs.owner-color", "0");
-		configDefaults.put("version", "2.0.0");
+		configDefaults.put("version", "2.0.1");
 		String header = this.getHeader();
 		configOptions.header(header);
 		if(configFile.exists() == false)
