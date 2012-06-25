@@ -697,7 +697,7 @@ public class InfiniteClaimsUtilities
 		
 		InfiniteClaimsPlotConfig plotFile = new InfiniteClaimsPlotConfig(this.plugin, new WorldCreator(worldName).createWorld());
 		
-		Location teleLoc = plotFile.getPlot(thePlayer.getName(), plotName);
+		Location teleLoc = plotFile.getPlot(thePlayer.getName().toLowerCase(), plotName);
 		
 		if(teleLoc.getX() != 0 && teleLoc.getZ() !=0)
 		{

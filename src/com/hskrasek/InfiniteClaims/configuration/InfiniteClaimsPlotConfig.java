@@ -10,6 +10,8 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.file.YamlConfigurationOptions;
 
+import uk.co.jacekk.bukkit.infiniteplots.InfinitePlotsGenerator;
+
 import com.hskrasek.InfiniteClaims.InfiniteClaims;
 
 public class InfiniteClaimsPlotConfig 
@@ -26,7 +28,19 @@ public class InfiniteClaimsPlotConfig
 		plot = new YamlConfiguration();
 		this.plugin = plugin;
 		this.plotWorld = plotWorld;
-		plotFile = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + plotWorld.getName() + File.separator + "plots.yml");
+		if(plotWorld.getGenerator() instanceof InfinitePlotsGenerator)
+		{
+			plotFile = new File(plugin.getDataFolder().getAbsolutePath() + File.separator + plotWorld.getName() + File.separator + "plots.yml");
+		}
+		else
+		{
+			if(plugin.DEBUGGING)
+			{
+				plugin.log.debug("Tried going to a plot in a nonplot world. Prevent plots.yml creation.");
+			}
+			return;
+		}
+		
 		plotOptions = plot.options();
 		plotDefaults.put("plots", "");
 		
@@ -79,6 +93,16 @@ public class InfiniteClaimsPlotConfig
 		double x = plot.getDouble("plots." + playerName + "." + plotName + ".x");
 		double y = plugin.plotHeight + 2;
 		double z = plot.getDouble("plots." + playerName + "." + plotName + ".z");
+		
+		if(plugin.DEBUGGING)
+		{
+			plugin.log.debug("==Get Plot Debug==");
+			plugin.log.debug("Player Name: " + playerName);
+			plugin.log.debug("Plot Name: " + plotName);
+			plugin.log.debug("X: " + x);
+			plugin.log.debug("Y: " + x);
+			plugin.log.debug("Z: " + x);
+		}
 		
 		return new Location(this.plotWorld, x, y, z, 180, 0);
 	}

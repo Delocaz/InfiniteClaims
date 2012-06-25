@@ -61,7 +61,7 @@ public class PlotTeleportCommand extends IClaimsCommand
 			// Assuming the player specified a user
 			if(playerName != null)
 			{
-				playerName.toLowerCase();
+				playerName = playerName.toLowerCase();
 				// Assuming the player specified a world
 				if(worldName != null)
 				{
