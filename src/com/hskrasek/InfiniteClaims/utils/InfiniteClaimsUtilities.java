@@ -1,8 +1,6 @@
 package com.hskrasek.InfiniteClaims.utils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -13,14 +11,11 @@ import java.util.Set;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Server;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
-import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 
@@ -37,6 +32,8 @@ import com.sk89q.worldedit.bukkit.BukkitPlayer;
 import com.sk89q.worldedit.bukkit.WorldEditPlugin;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.masks.Mask;
+import com.sk89q.worldedit.masks.RegionMask;
+import com.sk89q.worldedit.regions.CuboidRegion;
 import com.sk89q.worldedit.regions.Region;
 import com.sk89q.worldedit.regions.RegionOperationException;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
@@ -166,7 +163,9 @@ public class InfiniteClaimsUtilities
                 Location topLeft = new Location(w, workingLocation.getX() + (plotSize - 1), y, workingLocation.getZ() + (plotSize - 1));
 				CuboidSelection plot = new CuboidSelection(w, bottomRight, topLeft);
 				Region tempRegion = null;
-				try {
+				
+				try 
+				{
 					tempRegion = plot.getRegionSelector().getRegion();
 					tempRegion.expand(new Vector(0, w.getMaxHeight(), 0), new Vector(0, (-(plugin.plotHeight)+1), 0));
 				} 
@@ -178,7 +177,14 @@ public class InfiniteClaimsUtilities
 				{
 					p.sendMessage(e.getMessage());
 				}
-				String plotName = p.getName() + "Plot" + (playerRegionCount + 1); // failedAttemptCount is appended at the end for uniqueness
+				
+				LocalSession session = wep.getSession(p);
+				CuboidRegion weTesting = (CuboidRegion) tempRegion;
+				RegionMask rMask = new RegionMask(weTesting);
+				
+				session.setMask(rMask);
+				
+				String plotName = p.getName().toLowerCase() + "Plot" + (playerRegionCount + 1); // failedAttemptCount is appended at the end for uniqueness
 				p.sendMessage(pluginPrefix + "I've found a plot for you! Naming it: " + ChatColor.YELLOW + "plot" + (playerRegionCount + 1));
 				p.sendMessage(pluginPrefix + "You will need this name to return to your plot");
 				

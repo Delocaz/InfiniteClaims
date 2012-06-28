@@ -43,7 +43,6 @@ public class InfiniteClaims extends JavaPlugin
 	public InfiniteClaimsLogger log;
 	private CommandHandler commandHandler;
 	private InfiniteClaimsPerms permissionsInterface;
-//	protected Server server;
 	protected PluginManager pluginManager;
 	protected InfiniteClaimsConfig config;
 	public InfiniteClaimsUtilities icUtils;
@@ -98,7 +97,7 @@ public class InfiniteClaims extends JavaPlugin
 		{
 			this.log.info("You were using an older version of InfiniteClaims, scheduling a legacy conversion when the server has a chance.");
 			this.getServer().getScheduler().scheduleAsyncDelayedTask(this, new LegacyConversion(this), 40);
-			this.config.setString("version", "2.0.1");
+			this.config.setString("version", "2.0.2");
 		}
 		
 		this.getServer().getScheduler().scheduleAsyncRepeatingTask(this, new Updater(this), 40, 432000);
@@ -147,11 +146,13 @@ public class InfiniteClaims extends JavaPlugin
 		return commandHandler;
 	}
 
-	public InfiniteClaimsLogger getLog() {
+	public InfiniteClaimsLogger getLog() 
+	{
 		return log;
 	}
 
-	public InfiniteClaimsUtilities getIcUtils() {
+	public InfiniteClaimsUtilities getIcUtils() 
+	{
 		return icUtils;
 	}
 
@@ -159,8 +160,8 @@ public class InfiniteClaims extends JavaPlugin
 	{
 	    Plugin plugin = getServer().getPluginManager().getPlugin("WorldGuard");
 	
-	    // WorldGuard may not be loaded
-	    if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
+	    if (plugin == null || !(plugin instanceof WorldGuardPlugin)) 
+	    {
 	    	log.severe("WorldEdit MUST BE INSTALLED!");
 	        return null;
 	    }
@@ -171,8 +172,8 @@ public class InfiniteClaims extends JavaPlugin
 	{
 		Plugin plugin = getServer().getPluginManager().getPlugin("WorldEdit");
 	
-		//WorldEdit may not be loaded
-		if(plugin == null || !(plugin instanceof WorldEditPlugin)) {
+		if(plugin == null || !(plugin instanceof WorldEditPlugin)) 
+		{
 			log.severe("WorlEdit MUST BE INSTALLED");
 			return null;
 		}
